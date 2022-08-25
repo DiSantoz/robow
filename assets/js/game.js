@@ -11,65 +11,83 @@ let enemyNames = ["Roberto", "Android 19", "Beerus", "Scoli"];
 let enemyHealth = 50;
 let enemyAttack = 12;
 
-//  Fight Function
-const fight = function (enemyName) {
-  // Prompt player of beginning of game
-  window.alert(`Lets get ready to rummmblllleeee ${playerName}!!!`);
+// Prompt player of beginning of game
+window.alert(`Lets get ready to rummmblllleeee ${playerName}!!!`);
 
-  //  Fight or Flight?
-  const promptFight = window.prompt(
-    "Would you like to FIGHT or SKIP this battle? Enter 'FIGHT' or 'SKIP'."
-  );
+var fight = function (enemyName) {
+  while (playerHealth > 0 && enemyHealth > 0) {
+    // ask player if they'd like to fight or run
+    var promptFight = window.prompt(
+      'Would you like to FIGHT or SKIP this battle? Enter "FIGHT" or "SKIP" to choose.'
+    );
 
-  if (promptFight === "fight" || promptFight === "FIGHT") {
-    // enemy is attacked
+    // if player picks "skip" confirm and then stop the loop
+    if (promptFight === "skip" || promptFight === "SKIP") {
+      // confirm player wants to skip
+      var confirmSkip = window.confirm("Are you sure you'd like to quit?");
+
+      // if yes (true), leave fight
+      if (confirmSkip) {
+        window.alert(playerName + " has decided to skip this fight. Goodbye!");
+        // subtract money from playerMoney for skipping
+        playerMoney = playerMoney - 10;
+        console.log("playerMoney", playerMoney);
+        break;
+      }
+    }
+
+    // remove enemy's health by subtracting the amount set in the playerAttack variable
     enemyHealth = enemyHealth - playerAttack;
     console.log(
-      `${playerName} attacked ${enemyName}! ${enemyName} now has ${enemyHealth}HP remaining`
+      playerName +
+        " attacked " +
+        enemyName +
+        ". " +
+        enemyName +
+        " now has " +
+        enemyHealth +
+        " health remaining."
     );
 
-    //   check enemy's health
+    // check enemy's health
     if (enemyHealth <= 0) {
-      window.alert(enemyName + " has been slain!");
+      window.alert(enemyName + " has died!");
+
+      // award player money for winning
+      playerMoney = playerMoney + 20;
+
+      // leave while() loop since enemy is dead
+      break;
     } else {
-      window.alert(`${enemyName} still has ${enemyHealth}HP remaining!!`);
+      window.alert(enemyName + " still has " + enemyHealth + " health left.");
     }
 
-    //  player is attacked back
+    // remove players's health by subtracting the amount set in the enemyAttack variable
     playerHealth = playerHealth - enemyAttack;
-    console.log(playerHealth);
-
-    //   check player's health
-    if (playerHealth <= 0) {
-      window.alert(playerName + " has been killed, better luck next time.");
-    } else {
-      window.alert(
-        `${playerName} still has ${playerHealth}HP left. He coughs "I ain't hear no bell"`
-      );
-    }
-    //   if player SKIPS
-  } else if (promptFight === "skip" || promptFight === "SKIP") {
-    // confirm choice
-    let confirmSkip = window.confirm(
-      "Are you sure you want to skip the fight?"
+    console.log(
+      enemyName +
+        " attacked " +
+        playerName +
+        ". " +
+        playerName +
+        " now has " +
+        playerHealth +
+        " health remaining."
     );
-    // if yes, penalty is imposed
-    if (confirmSkip) {
-      window.alert(
-        `${playerName} had decided to leave with their dignity! Farewell. `
-      );
-      // penalty for skipping
-      playerMoney = playerMoney - 2;
-      //   if no, fight again
+
+    // check player's health
+    if (playerHealth <= 0) {
+      window.alert(playerName + " has died!");
+      // leave while() loop if player is dead
+      break;
     } else {
-      fight();
+      window.alert(playerName + " still has " + playerHealth + " health left.");
     }
-  } else {
-    window.alert("Pick a valid option");
   }
 };
 
-// fight();
 for (var i = 0; i < enemyNames.length; i++) {
-  fight(enemyNames[i]);
+  let pickedEnemyName = enemyNames[i];
+  enemyHealth = 50;
+  fight(pickedEnemyName);
 }
