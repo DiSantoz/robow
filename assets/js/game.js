@@ -7,11 +7,12 @@ let playerMoney = 10;
 console.log(playerName, playerAttack, playerHealth);
 
 // Enemy Robot
-let enemyName = "Roberto";
+let enemyNames = ["Roberto", "Android 19", "Beerus", "Scoli"];
 let enemyHealth = 50;
 let enemyAttack = 12;
 
-const fight = function () {
+//  Fight Function
+const fight = function (enemyName) {
   // Prompt player of beginning of game
   window.alert(`Lets get ready to rummmblllleeee ${playerName}!!!`);
 
@@ -68,4 +69,7 @@ const fight = function () {
   }
 };
 
-fight();
+// fight();
+for (var i = 0; i < enemyNames.length; i++) {
+  fight(enemyNames[i]);
+}
