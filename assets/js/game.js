@@ -125,8 +125,34 @@ var startGame = function () {
   }
 
   // play again
-  startGame();
+  endGame();
 };
+
+
+
+// End game
+
+var endGame = function () {
+  // if player is alive, they win
+  if (playerHealth > 0) {
+    window.alert("You've survived. Final score " + playerMoney + ".")
+  }
+  else {
+    window.alert("You've lost noob")
+  }
+
+// ask to play again
+
+var playAgainConfirm = window.confirm("Would you like to play again");
+
+if (playAgainConfirm){
+
+  startGame();
+} else{
+  window.alert("Thank you for playing=)")
+}
+
+}
 
 // game begins on page load
 
