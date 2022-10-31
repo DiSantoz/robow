@@ -8,8 +8,15 @@ console.log(playerName, playerAttack, playerHealth);
 
 // Enemy Robot
 let enemyNames = ['Roberto', 'Android 19', 'Beerus', 'Scoli'];
-let enemyHealth = 50;
+let enemyHealth = randomNumber(40, 60);
 let enemyAttack = 12;
+
+// function to generate a random numeric value
+var randomNumber = function (min, max) {
+  var value = Math.floor(Math.random() * (max - min + 1) + min);
+
+  return value;
+};
 
 // Prompt player of beginning of game
 window.alert(`Lets get ready to rummmblllleeee ${playerName}!!!`);
@@ -31,14 +38,16 @@ var fight = function (enemyName) {
       if (confirmSkip) {
         window.alert(playerName + ' has decided to skip this fight. Goodbye!');
         // subtract money from playerMoney for skipping
-        playerMoney = playerMoney - 10;
+        playerMoney = Math.max(0, playerMoney - 10);
         console.log('playerMoney', playerMoney);
         break;
       }
     }
 
-    // remove enemy's health by subtracting the amount set in the playerAttack variable
-    enemyHealth = enemyHealth - playerAttack;
+    // random damage based on player's atatck power
+    var damage = randomNumber(playerAttack - 3, playerAttack);
+
+    enemyHealth = Math.max(0, enemyHealth - damage);
     console.log(
       playerName +
         ' attacked ' +
@@ -64,7 +73,9 @@ var fight = function (enemyName) {
     }
 
     // remove players's health by subtracting the amount set in the enemyAttack variable
-    playerHealth = playerHealth - enemyAttack;
+    var damage = randomNumber(enemyAttack - 3, enemyAttack);
+
+    playerHealth = Math.max(0, playerHealth - damage);
     console.log(
       enemyName +
         ' attacked ' +
